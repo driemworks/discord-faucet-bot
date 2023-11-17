@@ -1,0 +1,21 @@
+{
+  "name": "ihatejs",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ideallabs/etf.js": "^0.1.1-dev",
+    "bn.js": "^5.2.1",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "events": "^3.3.0",
+    "lru-cache": "^10.0.2",
+    "rword": "^3.2.1"
+  }
+}
