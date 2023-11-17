@@ -1,14 +1,14 @@
 {
-  "name": "ihatejs",
+  "name": "discord-faucet-bot",
   "type": "module",
   "version": "1.0.0",
-  "description": "",
+  "description": "A discord faucet for substrate based chains",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Tony Riemer <driemworks@idealabs.network>",
   "license": "ISC",
   "dependencies": {
     "@ideallabs/etf.js": "^0.1.1-dev",

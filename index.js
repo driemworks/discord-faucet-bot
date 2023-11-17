@@ -85,7 +85,7 @@ client.on('messageCreate', async message => {
           await faucet.drip(args[1], processId, eventEmitter);
           eventEmitter.on(processId, async out => {
             await message.reply(out);
-            await message.reply("Completed process: " + processId);
+            console.log("Completed process: " + processId);
           })
           cache.set(message.author.id, 1, 1000 * 60 * 60 * config.limit);
         } else {
