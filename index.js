@@ -72,7 +72,6 @@ client.on('ready', async () => {
  */
 client.on('messageCreate', async message => {
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
-  const command = args.shift().toLowerCase();
 
   switch (args[0]) {
     case "ping":
@@ -80,12 +79,13 @@ client.on('messageCreate', async message => {
       break;
     case config.drip: 
         if (!cache.has(message.author.id)) {
-          // generate a random number
+          // generate a random 3-word identifier
           let processId = rword.generate(3).join("-");
-          console.log('Starting process with id: ' + processId);
+          console.log('Starting process: ' + processId);
           await faucet.drip(args[1], processId, eventEmitter);
           eventEmitter.on(processId, async out => {
             await message.reply(out);
+            await message.reply("Completed process: " + processId);
           })
           cache.set(message.author.id, 1, 1000 * 60 * 60 * config.limit);
         } else {
