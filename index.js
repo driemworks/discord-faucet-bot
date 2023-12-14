@@ -1,5 +1,5 @@
 import "dotenv/config.js";
-import { Client, GatewayIntentBits } from 'discord.js';
+import { Client, GatewayIntentBits, Partials } from 'discord.js';
 // @ts-ignore
 import { LRUCache } from "lru-cache";
 import Faucet from './faucet.js';
@@ -41,12 +41,14 @@ const options = {
 }
 
 const cache = new LRUCache(options);
-const client = new Client({ intents: [
-  GatewayIntentBits.Guilds, 
-  GatewayIntentBits.GuildMessages, 
-  GatewayIntentBits.DirectMessages,
-  GatewayIntentBits.MessageContent,
-] });
+const client = new Client({ 
+  intents: [
+    GatewayIntentBits.Guilds, 
+    GatewayIntentBits.GuildMessages, 
+    GatewayIntentBits.DirectMessages,
+    GatewayIntentBits.MessageContent,
+  ],
+  partials:[Partials.Channel] });
 import config from './config.js';
 const faucet = new Faucet(config);
 
@@ -72,8 +74,7 @@ client.on('ready', async () => {
  */
 client.on('messageCreate', async message => {
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
-
-  switch (args[0]) {
+  switch (args[1]) {
     case "ping":
       message.reply("Pong!");
       break;
@@ -82,7 +83,7 @@ client.on('messageCreate', async message => {
           // generate a random 3-word identifier
           let processId = rword.generate(3).join("-");
           console.log('Starting process: ' + processId);
-          await faucet.drip(args[1], processId, eventEmitter);
+          await faucet.drip(args[2], processId, eventEmitter);
           eventEmitter.on(processId, async out => {
             await message.reply(out);
             console.log("Completed process: " + processId);
